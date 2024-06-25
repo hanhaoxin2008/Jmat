@@ -51,6 +51,26 @@ public class Matrix {
         }
         return m;
     }
+    //static方法，创建矩阵
+    public static Matrix create(int rows, int cols, double val) {
+        /**
+         * 创建矩阵
+         * @param rows 矩阵的行数
+         * @param cols 矩阵的列数
+         * @param val 矩阵元素的值
+         * @return 矩阵
+         */
+        Matrix m = new Matrix(rows, cols);
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                m.set(i, j, val);
+            }
+        }
+        return m;
+    }
+
+
+
 
     @Override
     public String toString() {
@@ -121,7 +141,33 @@ public class Matrix {
         }
         return result;
     }
-
+    //矩阵减法
+    public Matrix sub(Matrix other) {
+        /**
+         * 矩阵减法
+         * @param other 另一个矩阵
+         * @return 两个矩阵相减的结果 matrix1 - matrix2
+         * @throws IllegalArgumentException 矩阵维度不匹配时抛出异常
+         * 矩阵减法的规则：
+         * 1. 两个矩阵的维度必须相同。
+         * 2. 两个矩阵对应位置的元素相减。
+         * 3. 结果矩阵的维度与两个矩阵相同。
+         * 4. 返回结果矩阵。
+         */
+        //判断维度是否匹配
+        if (this.rows != other.rows || this.cols != other.cols) {
+            throw new IllegalArgumentException("Matrix dimensions do not match.");
+        }
+        //创建结果矩阵
+        Matrix result = new Matrix(this.rows, this.cols);
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < this.cols; j++) {
+                //对应位置元素相减
+                result.set(i, j, this.get(i, j) - other.get(i, j));
+            }
+        }
+        return result;
+    }
 
 
 }
