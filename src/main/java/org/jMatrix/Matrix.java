@@ -168,6 +168,37 @@ public class Matrix {
         }
         return result;
     }
+    //矩阵乘法
+    public Matrix mul(Matrix other) {
+        /**
+         *  矩阵乘法
+         * @param other 另一个矩阵
+         * @return 两个矩阵相乘的结果 matrix1 * matrix2
+         * @throws IllegalArgumentException 矩阵维度不匹配时抛出异常
+         * 矩阵乘法的规则：
+         * 1. 第一个矩阵的列数必须等于第二个矩阵的行数。
+         * 2. 结果矩阵中的元素等于第一个矩阵中对应行的元素与第二个矩阵中对应列的元素的乘积的和。
+         * 3. 结果矩阵的行数等于第一个矩阵的行数，列数等于第二个矩阵的列数。
+         * 4. 返回结果矩阵。
+         */
+        //判断维度是否匹配
+        if (this.cols != other.rows) {
+            throw new IllegalArgumentException("Matrix dimensions do not match.");
+        }
+        //创建结果矩阵
+        Matrix result = new Matrix(this.rows, other.cols);
+        for (int i = 0; i < this.rows; i++) {
+            for (int j = 0; j < other.cols; j++) {
+                //对应位置元素相乘
+                double sum = 0.0;
+                for (int k = 0; k < this.cols; k++) {
+                    sum += this.get(i, k) * other.get(k, j);
+                }
+                result.set(i, j, sum);
+            }
+        }
+        return result;
+    }
 
 
 }
